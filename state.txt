@@ -1,0 +1,48 @@
+#定義畫紙
+import matplotlib.pyplot as plt
+fig = plt.figure(figsize=(24, 8))
+
+#基本增加子圖
+ax = fig.add_subplot(1, 1, 1)
+
+#定義畫紙網格
+from matplotlib.gridspec import GridSpec
+gs = GridSpec(3, 1) #把畫紙切成3raw 1col
+
+#座標增加子圖
+ax = plt.add_axes( x初始座標, y初始座標, 寬, 高 )
+
+#網格增加子圖
+ax = plt.subplot(gs[:2, :]) #子圖占比前面2raw 及全部的col
+
+#繪製股票圖
+import mpl_finance as mpf
+mpf.candlestick2_ochl(ax, 
+                      df['Open'], 
+                      df['Close'], 
+                      df['High'], 
+                      df['Low'], 
+                      width=0.6, alpha=0.75, 
+                      colorup='r', colordown='g')
+
+#圖基本的屬性
+ax.set_xticks(range(0, len(df.index), 200)) #用range把x軸切成等分
+ax.set_xticklabels(df.index[::200]) #設定x軸值
+ax.set_title('stock') #設定畫紙抬頭
+ax.set_ylabel('price') #y值標籤
+ax.set_xlim(0, len(df.index)) #x軸邊界定義
+ax.legend() #顯示圖例
+
+#圖紙風格
+plt.style.available #查看全部風格
+
+
+#各種圖表
+plt.plot(x,y,label='First one')
+plt.hist(population_age,bins,histtype='bar',rwidth = 0.5)
+plt.bar(x,y,label='bar1',color='r')
+plt.scatter(x,y,label='skit',color='k',marker = '*',s = 100)
+
+
+#特殊用法---------------------------------------------------------------
+df[['Open', 'Close']].plot(figsize=(24,8)) #直接在df裡面繪圖(快速)
