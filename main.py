@@ -12,13 +12,13 @@ import numpy
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import mpl_finance as mpf
-import seaborn as sns
+#import seaborn as sns
 
 
 if __name__ == '__main__':
     #sns.set()
     # 取得資料
-    tickers = ['2330.TW']
+    tickers = ['^TWII']
     Load = LoadData()
     alldata = Load.loadYahooFinanceData(tickers=tickers, start='2019-01-01')
     df = alldata[tickers[0]]
@@ -35,13 +35,13 @@ if __name__ == '__main__':
     # 主圖---------------------------------------------------------------------
     
     # 定義子圖
-    fig = plt.figure(figsize=(24, 8))
+    fig = plt.figure(figsize=(15, 8))
     '''gs = GridSpec(3, 1)
     ax = plt.subplot(gs[:2, :])
     ax2 = plt.subplot(gs[2, :])'''
     
-    ax = fig.add_axes([0,0.2,1,0.7])
-    ax2 = fig.add_axes([0,0.1,1,0.1])   
+    ax = fig.add_axes([0.1,0.2,0.8,0.7])
+    ax2 = fig.add_axes([0.1,0.1,0.8,0.1])   
     
     
     # 繪圖
@@ -56,9 +56,10 @@ if __name__ == '__main__':
                           width=0.6, alpha=0.75, 
                           colorup='r', colordown='g')
     
-    ax.set_xticks(range(0, len(df.index), 200))
-    ax.set_xticklabels(df.index[::200])
+    ax.set_xticks(range(0, len(df.index), 100))
+    ax.set_xticklabels(df.index[::100])
     ax.set_xlim(0, len(df.index))
+    ax.axes.xaxis.set_ticks([])
     
     ax.plot(sma20.index, sma20, label='ma20')
     ax.set_title('stock')
@@ -73,10 +74,11 @@ if __name__ == '__main__':
                        width=0.6, 
                        colorup='r', colordown='g')
     
-    ax2.set_xticks(range(0, len(df.index), 200))
-    ax2.set_xticklabels(df.index[::200])
+    ax2.set_xticks(range(0, len(df.index), 100))
+    ax2.set_xticklabels(df.index[::100])
     ax2.set_xlim(0, len(df.index))
     
+   #ax2.set_yticks(range(0, max(df['Volume']), max(df['Volume'])/4))
     
     
     
